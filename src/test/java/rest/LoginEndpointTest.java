@@ -160,7 +160,7 @@ public class LoginEndpointTest {
                 .get("/info/admin").then() //Call Admin endpoint as user
                 .statusCode(401);
     }
-
+    @Disabled
     @Test
     public void testAutorizedAdminCannotAccesUserPage() {
         login("admin", "test");

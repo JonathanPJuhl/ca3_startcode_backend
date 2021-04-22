@@ -1,5 +1,7 @@
 package facades;
 
+import entities.Role;
+import entities.User;
 import utils.EMF_Creator;
 import entities.RenameMe;
 import javax.persistence.EntityManager;
@@ -39,9 +41,20 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new RenameMe("Some txt", "More text"));
-            em.persist(new RenameMe("aaa", "bbb"));
+            Role userRole = new Role("user");
+            Role adminRole = new Role("admin");
+            User user = new User("user", "test");
+            user.addRole(userRole);
+            User admin = new User("admin", "test");
+            admin.addRole(adminRole);
+            User both = new User("user_admin", "test");
+            both.addRole(userRole);
+            both.addRole(adminRole);
+            em.persist(userRole);
+            em.persist(adminRole);
+            em.persist(user);
+            em.persist(admin);
+            em.persist(both);
 
             em.getTransaction().commit();
         } finally {
@@ -59,5 +72,6 @@ public class FacadeExampleTest {
     public void testAFacadeMethod() {
         assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
     }
+
 
 }

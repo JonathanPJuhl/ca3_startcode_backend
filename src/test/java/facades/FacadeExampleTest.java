@@ -50,8 +50,8 @@ public class FacadeExampleTest {
             User both = new User("user_admin", "test");
             both.addRole(userRole);
             both.addRole(adminRole);
-            em.persist(userRole);
-            em.persist(adminRole);
+           // em.persist(userRole);
+          //  em.persist(adminRole);
             em.persist(user);
             em.persist(admin);
             em.persist(both);
@@ -68,10 +68,10 @@ public class FacadeExampleTest {
     }
 
     // TODO: Delete or change this method 
-    @Test
-    public void testAFacadeMethod() {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
-    }
+//    @Test
+//    public void testAFacadeMethod() {
+//        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+//    }
 
 
 }

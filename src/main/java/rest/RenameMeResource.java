@@ -42,7 +42,7 @@ public class RenameMeResource {
         String firstFetch2 = fetchData("https://swapi.dev/api/people/3/");
         String firstFetch3 = fetchData("https://swapi.dev/api/people/4/");
         String firstFetch4 = fetchData("https://swapi.dev/api/people/5/");
-        return firstFetch+"\n\n\n\n"+firstFetch1+"\n\n\n\n"+firstFetch2+"\n\n\n\n"+firstFetch3+"\n\n\n\n"+firstFetch4;
+        return "["+firstFetch+",\n\n\n\n"+firstFetch1+",\n\n\n\n"+firstFetch2+",\n\n\n\n"+firstFetch3+",\n\n\n\n"+firstFetch4+"]";
 
     }
 

@@ -50,8 +50,8 @@ public class FacadeExampleTest {
             User both = new User("user_admin", "test");
             both.addRole(userRole);
             both.addRole(adminRole);
-            em.persist(userRole);
-            em.persist(adminRole);
+           // em.persist(userRole);
+          //  em.persist(adminRole);
             em.persist(user);
             em.persist(admin);
             em.persist(both);
@@ -67,11 +67,13 @@ public class FacadeExampleTest {
 //        Remove any data after each test was run
     }
 
+
     @Test
     public void testGetVerifiedUserShouldWork() throws AuthenticationException {
         User user = facade.getVeryfiedUser("user", "test");
         assertTrue(user!=null);
     }
+
 
     @Test
     public void testGetVerifiedUserShouldntWork()  {

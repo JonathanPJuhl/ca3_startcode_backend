@@ -2,23 +2,21 @@ package facades;
 
 import entities.Role;
 import entities.User;
+import org.junit.jupiter.api.*;
+import security.errorhandling.AuthenticationException;
 import utils.EMF_Creator;
-import entities.RenameMe;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 //Uncomment the line below, to temporarily disable this test
-//@Disabled
+@Disabled
 public class FacadeExampleTest {
 
     private static EntityManagerFactory emf;
-    private static FacadeExample facade;
+    private static UserFacade facade;
 
     public FacadeExampleTest() {
     }
@@ -26,7 +24,7 @@ public class FacadeExampleTest {
     @BeforeAll
     public static void setUpClass() {
        emf = EMF_Creator.createEntityManagerFactoryForTest();
-       facade = FacadeExample.getFacadeExample(emf);
+       facade = UserFacade.getUserFacade(emf);
     }
 
     @AfterAll
@@ -41,6 +39,8 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createQuery("delete from User").executeUpdate();
+            em.createQuery("delete from Role").executeUpdate();
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "test");
@@ -67,11 +67,16 @@ public class FacadeExampleTest {
 //        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method 
-//    @Test
-//    public void testAFacadeMethod() {
-//        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
-//    }
+
+    @Test
+    public void testGetVerifiedUserShouldWork() throws AuthenticationException {
+        User user = facade.getVeryfiedUser("user", "test");
+        assertTrue(user!=null);
+    }
 
 
+    @Test
+    public void testGetVerifiedUserShouldntWork()  {
+        assertThrows(security.errorhandling.AuthenticationException.class, () -> facade.getVeryfiedUser("user", "ae"));
+    }
 }

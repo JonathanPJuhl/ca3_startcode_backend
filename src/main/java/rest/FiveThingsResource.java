@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 
 import utils.EMF_Creator;
 import facades.FacadeExample;
+
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,7 +20,7 @@ import java.util.Scanner;
 
 //Todo Remove or change relevant parts before ACTUAL use
 @Path("5things")
-public class RenameMeResource {
+public class FiveThingsResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
        
@@ -35,6 +37,7 @@ public class RenameMeResource {
 
     @GET
     @Path("/teachersSolution")
+    @RolesAllowed({"user", "admin"})
     @Produces({MediaType.APPLICATION_JSON})
     public String teacherSolution() throws IOException {
         String firstFetch = fetchData("https://swapi.dev/api/people/1/");

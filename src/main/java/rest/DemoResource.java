@@ -68,4 +68,11 @@ public class DemoResource {
         String thisuser = securityContext.getUserPrincipal().getName();
         return "{\"msg\": \"Hello to (admin) User: " + thisuser + "\"}";
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("populate")
+    public void populate() {
+       utils.SetupTestUsers.populate();
+    }
 }

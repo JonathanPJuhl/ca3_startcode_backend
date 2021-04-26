@@ -65,7 +65,7 @@ public class FiveThingsResourceTest {
 
         try {
             em.getTransaction().begin();
-           
+
             em.getTransaction().commit();
         } finally {
             em.close();
